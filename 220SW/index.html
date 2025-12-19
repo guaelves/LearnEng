@@ -17,7 +17,6 @@ body {
     min-height: 100vh;
 }
 
-/* ====== 上方模式按鈕 ====== */
 .mode-bar {
     position: sticky;
     top: 0;
@@ -57,10 +56,16 @@ body {
 }
 
 #gameTitle {
-    margin-bottom: 80px;
+    margin-bottom: 20px;
     text-align: center;
     color: #333;
     line-height: 1;
+}
+
+#levelInfo {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #555;
 }
 
 .question-card {
@@ -133,6 +138,7 @@ body {
 
 <div class="game-container">
     <h1 id="gameTitle">220 Sight Words 小遊戲</h1>
+    <div id="levelInfo"></div>
     <div class="question-card" id="question"></div>
     <div class="options-container" id="options"></div>
 </div>
@@ -161,7 +167,6 @@ const questions = [
 {img:"220PICTURE/037.jpg",ans:"make"},{img:"220PICTURE/038.jpg",ans:"play"},
 {img:"220PICTURE/039.jpg",ans:"run"},{img:"220PICTURE/040.jpg",ans:"said"},
 {img:"220PICTURE/041.jpg",ans:"where"},
-
 {img:"220PICTURE/042.jpg",ans:"all"},{img:"220PICTURE/043.jpg",ans:"at"},
 {img:"220PICTURE/044.jpg",ans:"but"},{img:"220PICTURE/045.jpg",ans:"he"},
 {img:"220PICTURE/046.jpg",ans:"on"},{img:"220PICTURE/047.jpg",ans:"she"},
@@ -188,7 +193,6 @@ const questions = [
 {img:"220PICTURE/088.jpg",ans:"please"},{img:"220PICTURE/089.jpg",ans:"say"},
 {img:"220PICTURE/090.jpg",ans:"soon"},{img:"220PICTURE/091.jpg",ans:"under"},
 {img:"220PICTURE/092.jpg",ans:"white"},{img:"220PICTURE/093.jpg",ans:"who"},
-
 {img:"220PICTURE/094.jpg",ans:"after"},{img:"220PICTURE/095.jpg",ans:"by"},
 {img:"220PICTURE/096.jpg",ans:"every"},{img:"220PICTURE/097.jpg",ans:"had"},
 {img:"220PICTURE/098.jpg",ans:"her"},{img:"220PICTURE/099.jpg",ans:"him"},
@@ -209,59 +213,68 @@ const questions = [
 {img:"220PICTURE/128.jpg",ans:"just"},{img:"220PICTURE/129.jpg",ans:"know"},
 {img:"220PICTURE/130.jpg",ans:"live"},{img:"220PICTURE/131.jpg",ans:"once"},
 {img:"220PICTURE/132.jpg",ans:"open"},{img:"220PICTURE/133.jpg",ans:"put"},
-{img:"220PICTURE/134.jpg",ans:"thank"},
-
-{img:"220PICTURE/135.jpg",ans:"always"},{img:"220PICTURE/136.jpg",ans:"around"},
-{img:"220PICTURE/137.jpg",ans:"because"},{img:"220PICTURE/138.jpg",ans:"been"},
-{img:"220PICTURE/139.jpg",ans:"before"},{img:"220PICTURE/140.jpg",ans:"best"},
-{img:"220PICTURE/141.jpg",ans:"both"},{img:"220PICTURE/142.jpg",ans:"buy"},
-{img:"220PICTURE/143.jpg",ans:"call"},{img:"220PICTURE/144.jpg",ans:"cold"},
-{img:"220PICTURE/145.jpg",ans:"does"},{img:"220PICTURE/146.jpg",ans:"don't"},
-{img:"220PICTURE/147.jpg",ans:"fast"},{img:"220PICTURE/148.jpg",ans:"first"},
-{img:"220PICTURE/149.jpg",ans:"five"},{img:"220PICTURE/150.jpg",ans:"found"},
-{img:"220PICTURE/151.jpg",ans:"gave"},{img:"220PICTURE/152.jpg",ans:"goes"},
-{img:"220PICTURE/153.jpg",ans:"green"},{img:"220PICTURE/154.jpg",ans:"its"},
-{img:"220PICTURE/155.jpg",ans:"made"},{img:"220PICTURE/156.jpg",ans:"many"},
-{img:"220PICTURE/157.jpg",ans:"off"},{img:"220PICTURE/158.jpg",ans:"or"},
-{img:"220PICTURE/159.jpg",ans:"pull"},{img:"220PICTURE/160.jpg",ans:"read"},
-{img:"220PICTURE/161.jpg",ans:"right"},{img:"220PICTURE/162.jpg",ans:"sing"},
-{img:"220PICTURE/163.jpg",ans:"sit"},{img:"220PICTURE/164.jpg",ans:"sleep"},
-{img:"220PICTURE/165.jpg",ans:"tell"},{img:"220PICTURE/166.jpg",ans:"their"},
-{img:"220PICTURE/167.jpg",ans:"these"},{img:"220PICTURE/168.jpg",ans:"those"},
-{img:"220PICTURE/169.jpg",ans:"upon"},{img:"220PICTURE/170.jpg",ans:"us"},
-{img:"220PICTURE/171.jpg",ans:"use"},{img:"220PICTURE/172.jpg",ans:"very"},
-{img:"220PICTURE/173.jpg",ans:"wash"},{img:"220PICTURE/174.jpg",ans:"which"},
-{img:"220PICTURE/175.jpg",ans:"why"},{img:"220PICTURE/176.jpg",ans:"wish"},
-{img:"220PICTURE/177.jpg",ans:"work"},{img:"220PICTURE/178.jpg",ans:"would"},
-{img:"220PICTURE/179.jpg",ans:"write"},{img:"220PICTURE/180.jpg",ans:"your"},
-
-{img:"220PICTURE/181.jpg",ans:"about"},{img:"220PICTURE/182.jpg",ans:"better"},
-{img:"220PICTURE/183.jpg",ans:"bring"},{img:"220PICTURE/184.jpg",ans:"carry"},
-{img:"220PICTURE/185.jpg",ans:"clean"},{img:"220PICTURE/186.jpg",ans:"cut"},
-{img:"220PICTURE/187.jpg",ans:"done"},{img:"220PICTURE/188.jpg",ans:"draw"},
-{img:"220PICTURE/189.jpg",ans:"drink"},{img:"220PICTURE/190.jpg",ans:"eight"},
-{img:"220PICTURE/191.jpg",ans:"fall"},{img:"220PICTURE/192.jpg",ans:"far"},
-{img:"220PICTURE/193.jpg",ans:"full"},{img:"220PICTURE/194.jpg",ans:"got"},
-{img:"220PICTURE/195.jpg",ans:"grow"},{img:"220PICTURE/196.jpg",ans:"hold"},
-{img:"220PICTURE/197.jpg",ans:"hot"},{img:"220PICTURE/198.jpg",ans:"hurt"},
-{img:"220PICTURE/199.jpg",ans:"if"},{img:"220PICTURE/200.jpg",ans:"keep"},
-{img:"220PICTURE/201.jpg",ans:"kind"},{img:"220PICTURE/202.jpg",ans:"laugh"},
-{img:"220PICTURE/203.jpg",ans:"light"},{img:"220PICTURE/204.jpg",ans:"long"},
-{img:"220PICTURE/205.jpg",ans:"much"},{img:"220PICTURE/206.jpg",ans:"myself"},
-{img:"220PICTURE/207.jpg",ans:"never"},{img:"220PICTURE/208.jpg",ans:"only"},
-{img:"220PICTURE/209.jpg",ans:"own"},{img:"220PICTURE/210.jpg",ans:"pick"},
-{img:"220PICTURE/211.jpg",ans:"seven"},{img:"220PICTURE/212.jpg",ans:"shall"},
-{img:"220PICTURE/213.jpg",ans:"show"},{img:"220PICTURE/214.jpg",ans:"six"},
-{img:"220PICTURE/215.jpg",ans:"small"},{img:"220PICTURE/216.jpg",ans:"start"},
-{img:"220PICTURE/217.jpg",ans:"ten"},{img:"220PICTURE/218.jpg",ans:"today"},
-{img:"220PICTURE/219.jpg",ans:"together"},
-{img:"220PICTURE/220.jpg",ans:"try"},
-{img:"220PICTURE/221.jpg",ans:"warm"}
+{img:"220PICTURE/134.jpg",ans:"thank"},{img:"220PICTURE/135.jpg",ans:"always"},
+{img:"220PICTURE/136.jpg",ans:"around"},{img:"220PICTURE/137.jpg",ans:"because"},
+{img:"220PICTURE/138.jpg",ans:"been"},{img:"220PICTURE/139.jpg",ans:"before"},
+{img:"220PICTURE/140.jpg",ans:"best"},{img:"220PICTURE/141.jpg",ans:"both"},
+{img:"220PICTURE/142.jpg",ans:"buy"},{img:"220PICTURE/143.jpg",ans:"call"},
+{img:"220PICTURE/144.jpg",ans:"cold"},{img:"220PICTURE/145.jpg",ans:"does"},
+{img:"220PICTURE/146.jpg",ans:"don't"},{img:"220PICTURE/147.jpg",ans:"fast"},
+{img:"220PICTURE/148.jpg",ans:"first"},{img:"220PICTURE/149.jpg",ans:"five"},
+{img:"220PICTURE/150.jpg",ans:"found"},{img:"220PICTURE/151.jpg",ans:"gave"},
+{img:"220PICTURE/152.jpg",ans:"goes"},{img:"220PICTURE/153.jpg",ans:"green"},
+{img:"220PICTURE/154.jpg",ans:"its"},{img:"220PICTURE/155.jpg",ans:"made"},
+{img:"220PICTURE/156.jpg",ans:"many"},{img:"220PICTURE/157.jpg",ans:"off"},
+{img:"220PICTURE/158.jpg",ans:"or"},{img:"220PICTURE/159.jpg",ans:"pull"},
+{img:"220PICTURE/160.jpg",ans:"read"},{img:"220PICTURE/161.jpg",ans:"right"},
+{img:"220PICTURE/162.jpg",ans:"sing"},{img:"220PICTURE/163.jpg",ans:"sit"},
+{img:"220PICTURE/164.jpg",ans:"sleep"},{img:"220PICTURE/165.jpg",ans:"tell"},
+{img:"220PICTURE/166.jpg",ans:"their"},{img:"220PICTURE/167.jpg",ans:"these"},
+{img:"220PICTURE/168.jpg",ans:"those"},{img:"220PICTURE/169.jpg",ans:"upon"},
+{img:"220PICTURE/170.jpg",ans:"us"},{img:"220PICTURE/171.jpg",ans:"use"},
+{img:"220PICTURE/172.jpg",ans:"very"},{img:"220PICTURE/173.jpg",ans:"wash"},
+{img:"220PICTURE/174.jpg",ans:"which"},{img:"220PICTURE/175.jpg",ans:"why"},
+{img:"220PICTURE/176.jpg",ans:"wish"},{img:"220PICTURE/177.jpg",ans:"work"},
+{img:"220PICTURE/178.jpg",ans:"would"},{img:"220PICTURE/179.jpg",ans:"write"},
+{img:"220PICTURE/180.jpg",ans:"your"},{img:"220PICTURE/181.jpg",ans:"about"},
+{img:"220PICTURE/182.jpg",ans:"better"},{img:"220PICTURE/183.jpg",ans:"bring"},
+{img:"220PICTURE/184.jpg",ans:"carry"},{img:"220PICTURE/185.jpg",ans:"clean"},
+{img:"220PICTURE/186.jpg",ans:"cut"},{img:"220PICTURE/187.jpg",ans:"done"},
+{img:"220PICTURE/188.jpg",ans:"draw"},{img:"220PICTURE/189.jpg",ans:"drink"},
+{img:"220PICTURE/190.jpg",ans:"eight"},{img:"220PICTURE/191.jpg",ans:"fall"},
+{img:"220PICTURE/192.jpg",ans:"far"},{img:"220PICTURE/193.jpg",ans:"full"},
+{img:"220PICTURE/194.jpg",ans:"got"},{img:"220PICTURE/195.jpg",ans:"grow"},
+{img:"220PICTURE/196.jpg",ans:"hold"},{img:"220PICTURE/197.jpg",ans:"hot"},
+{img:"220PICTURE/198.jpg",ans:"hurt"},{img:"220PICTURE/199.jpg",ans:"if"},
+{img:"220PICTURE/200.jpg",ans:"keep"},{img:"220PICTURE/201.jpg",ans:"kind"},
+{img:"220PICTURE/202.jpg",ans:"laugh"},{img:"220PICTURE/203.jpg",ans:"light"},
+{img:"220PICTURE/204.jpg",ans:"long"},{img:"220PICTURE/205.jpg",ans:"much"},
+{img:"220PICTURE/206.jpg",ans:"off"},{img:"220PICTURE/207.jpg",ans:"open"},
+{img:"220PICTURE/208.jpg",ans:"own"},{img:"220PICTURE/209.jpg",ans:"round"},
+{img:"220PICTURE/210.jpg",ans:"sing"},{img:"220PICTURE/211.jpg",ans:"sit"},
+{img:"220PICTURE/212.jpg",ans:"sleep"},{img:"220PICTURE/213.jpg",ans:"study"},
+{img:"220PICTURE/214.jpg",ans:"take"},{img:"220PICTURE/215.jpg",ans:"than"},
+{img:"220PICTURE/216.jpg",ans:"them"},{img:"220PICTURE/217.jpg",ans:"then"},
+{img:"220PICTURE/218.jpg",ans:"these"},{img:"220PICTURE/219.jpg",ans:"those"},
+{img:"220PICTURE/220.jpg",ans:"thought"},{img:"220PICTURE/221.jpg",ans:"warm"}
 ];
 
 /* ================= 遊戲邏輯 ================= */
-const pool = questions.map(q=>q.ans);
+const levelRanges = {
+    1: [0, 41],
+    2: [42, 93],
+    3: [94, 134],
+    4: [135, 180],
+    5: [181, 221]
+};
+
+let currentQuestions = [...questions];
+let pool = questions.map(q => q.ans);
 let index = 0;
+let currentMode = 'all';
+let orderMode = false;
+
+const levelInfoEl = document.getElementById("levelInfo");
 
 function fitText(el){
     let h = el.parentElement.clientHeight * 0.8;
@@ -272,113 +285,54 @@ function fitText(el){
     }
 }
 
-function load(){
-    const q = questions[index];
-    const qc = document.getElementById("question");
-    qc.innerHTML = "";
-    const img = document.createElement("img");
-    img.src = q.img;
-    qc.appendChild(img);
-
-    const opt = document.getElementById("options");
-    opt.innerHTML = "";
-
-    let choices = [q.ans];
-    while(choices.length < 4){
-        let w = pool[Math.floor(Math.random()*pool.length)];
-        if(!choices.includes(w)) choices.push(w);
+function shuffle(arr){
+    for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i],arr[j]]=[arr[j],arr[i]];
     }
-    choices.sort(()=>Math.random()-0.5);
-
-    choices.forEach(w=>{
-        const card = document.createElement("div");
-        card.className="card";
-        const span=document.createElement("span");
-        span.innerText=w;
-        card.appendChild(span);
-        setTimeout(()=>fitText(span),0);
-
-        card.onclick=()=>{
-            if(w===q.ans){
-                card.classList.add("correct");
-                span.innerText="⭕";
-                setTimeout(()=>{
-                    index=(index+1)%questions.length;
-                    load();
-                },500);
-            }else{
-                card.classList.add("wrong");
-                span.innerText="❌";
-            }
-        };
-        opt.appendChild(card);
-    });
 }
 
-window.addEventListener("resize",()=>{
-    document.querySelectorAll(".card span").forEach(fitText);
-});
-
-/* ================= 模式控制 ================= */
-let currentQuestions = [...questions];
-let orderMode = false;
-
-const levelRanges = {
-    1: [0, 40],
-    2: [41, 92],
-    3: [93, 134],
-    4: [135, 180],
-    5: [181, 220]
-};
-
 function setMode(mode){
-    document.querySelectorAll(".mode-bar button")
-        .forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".mode-bar button").forEach(b=>b.classList.remove("active"));
     event.target.classList.add("active");
 
+    currentMode = mode;
     orderMode = false;
 
     if(mode === "all"){
         currentQuestions = [...questions];
         shuffle(currentQuestions);
-    }
-    else if(mode === "order"){
+    } else if(mode === "order"){
         currentQuestions = [...questions];
         orderMode = true;
-    }
-    else{
-        const [start, end] = levelRanges[mode];
-        currentQuestions = questions.slice(start, end + 1);
+    } else {
+        const [start,end]=levelRanges[mode];
+        currentQuestions = questions.slice(start,end+1);
         shuffle(currentQuestions);
     }
 
-    index = 0;
+    index=0;
     loadCurrent();
 }
 
-function shuffle(arr){
-    for(let i = arr.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-}
-
-/* loadCurrent 依 currentQuestions 出題 */
 function loadCurrent(){
     const q = currentQuestions[index];
     if(!q) return;
 
+    let levelNum = getLevelByIndex(index);
+    levelInfoEl.innerText = `Level ${levelNum} - 題目 ${index+1} / ${currentQuestions.length}`;
+
     const qc = document.getElementById("question");
-    qc.innerHTML = "";
+    qc.innerHTML="";
     const img = document.createElement("img");
     img.src = q.img;
     qc.appendChild(img);
 
     const opt = document.getElementById("options");
-    opt.innerHTML = "";
+    opt.innerHTML="";
 
-    let choices = [q.ans];
-    while(choices.length < 4){
+    let choices=[q.ans];
+    while(choices.length<4){
         let w = pool[Math.floor(Math.random()*pool.length)];
         if(!choices.includes(w)) choices.push(w);
     }
@@ -399,12 +353,12 @@ function loadCurrent(){
                 setTimeout(()=>{
                     index++;
                     if(index >= currentQuestions.length){
-                        index = 0;
+                        index=0;
                         if(!orderMode) shuffle(currentQuestions);
                     }
                     loadCurrent();
                 },500);
-            }else{
+            } else {
                 card.classList.add("wrong");
                 span.innerText="❌";
             }
@@ -412,6 +366,18 @@ function loadCurrent(){
         opt.appendChild(card);
     });
 }
+
+function getLevelByIndex(idx){
+    for(let l=1;l<=5;l++){
+        const [start,end] = levelRanges[l];
+        if(idx>=start && idx<=end) return l;
+    }
+    return "?";
+}
+
+window.addEventListener("resize",()=>{
+    document.querySelectorAll(".card span").forEach(fitText);
+});
 
 loadCurrent();
 </script>
