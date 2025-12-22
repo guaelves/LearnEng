@@ -5,29 +5,126 @@
 <title>220 Sight Words 小遊戲</title>
 
 <style>
-body { margin:0; padding:0; background:#fefaf0; font-family:Arial,sans-serif; display:flex; justify-content:center; align-items:center; flex-direction:column; min-height:100vh;}
-.mode-bar { position: sticky; top:0; background:#fefaf0; width:100%; padding:10px 5px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; z-index:10;}
-.mode-bar button { padding:8px 14px; font-size:16px; border-radius:8px; border:2px solid #ccc; background:#fff; cursor:pointer;}
-.mode-bar button.active { background:#4CAF50; color:#fff; border-color:#4CAF50;}
-.game-container { width:100%; padding:20px; box-sizing:border-box; display:flex; flex-direction:column; gap:20px; align-items:center;}
-#gameTitle { margin-bottom:20px; text-align:center; color:#333; line-height:1;}
-#questionInfo { margin-bottom:10px; font-size:18px; color:#555;}
-.question-card { width:98%; min-height:45vh; background:#fff8dc; border:2px solid #e0c676; border-radius:12px; display:flex; justify-content:center; align-items:center; box-shadow:3px 3px 8px rgba(0,0,0,0.15); overflow:hidden;}
-.question-card img { max-width:100%; max-height:100%;}
-.options-container { width:100%; display:grid; grid-template-columns:repeat(2,1fr); gap:15px; justify-items:center;}
-.card { width:40vw; aspect-ratio:2/1; background:#f0f0f0; border-radius:12px; border:2px solid #ccc; font-weight:bold; display:flex; justify-content:center; align-items:center; cursor:pointer; transition:0.2s;}
-.card span { width:100%; text-align:center; white-space:nowrap;}
-.card:hover { transform:scale(1.05);}
-.correct { background:#d4f8d4 !important;}
-.wrong { background:#ffd5d5 !important;}
-@media (max-width:480px){.card{width:35vw;}}
+body {
+    margin:0; padding:0;
+    background:#fefaf0;
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    min-height:100vh;
+}
+
+.mode-bar {
+    position:sticky;
+    top:0;
+    width:100%;
+    background:#fefaf0;
+    padding:10px 5px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    z-index:10;
+}
+
+.mode-bar button {
+    padding:8px 14px;
+    font-size:16px;
+    border-radius:8px;
+    border:2px solid #ccc;
+    background:#fff;
+    cursor:pointer;
+}
+
+.mode-bar button.active {
+    background:#4CAF50;
+    color:#fff;
+    border-color:#4CAF50;
+}
+
+.game-container {
+    width:100%;
+    padding:20px;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    align-items:center;
+}
+
+#gameTitle {
+    margin:10px 0;
+    text-align:center;
+    color:#333;
+}
+
+#questionInfo {
+    font-size:18px;
+    color:#555;
+}
+
+.question-card {
+    width:98%;
+    min-height:45vh;
+    background:#fff8dc;
+    border:2px solid #e0c676;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:3px 3px 8px rgba(0,0,0,0.15);
+    overflow:hidden;
+}
+
+.question-card img {
+    max-width:100%;
+    max-height:100%;
+}
+
+.options-container {
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    justify-items:center;
+}
+
+.card {
+    width:40vw;
+    aspect-ratio:2/1;
+    background:#f0f0f0;
+    border-radius:12px;
+    border:2px solid #ccc;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.card span {
+    width:100%;
+    text-align:center;
+    white-space:nowrap;
+}
+
+.card:hover { transform:scale(1.05); }
+.correct { background:#d4f8d4 !important; }
+.wrong { background:#ffd5d5 !important; }
+
+@media (max-width:480px){
+    .card { width:35vw; }
+}
 </style>
 </head>
 
 <body>
 
 <div class="mode-bar">
-    <button id="btnAll">All</button>
+    <button id="btnAll" onclick="setMode('all')">All</button>
     <button onclick="setMode(1)">Level 1</button>
     <button onclick="setMode(2)">Level 2</button>
     <button onclick="setMode(3)">Level 3</button>
@@ -43,12 +140,14 @@ body { margin:0; padding:0; background:#fefaf0; font-family:Arial,sans-serif; di
     <div class="options-container" id="options"></div>
 </div>
 
-<audio id="correctSound"><source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg"></audio>
-<audio id="wrongSound"><source src="https://www.soundjay.com/buttons/sounds/button-10.mp3" type="audio/mpeg"></audio>
+<audio id="correctSound">
+  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3">
+</audio>
 
 <script>
 // ================= 完整 220 題庫 =================
-const questions=[
+const questions = [
+/* 001–093 */
 {img:"220PICTURE/001.jpg",ans:"I"},{img:"220PICTURE/002.jpg",ans:"I"},
 {img:"220PICTURE/003.jpg",ans:"a"},{img:"220PICTURE/004.jpg",ans:"and"},
 {img:"220PICTURE/005.jpg",ans:"see"},{img:"220PICTURE/006.jpg",ans:"big"},
@@ -95,58 +194,165 @@ const questions=[
 {img:"220PICTURE/087.jpg",ans:"our"},{img:"220PICTURE/088.jpg",ans:"please"},
 {img:"220PICTURE/089.jpg",ans:"say"},{img:"220PICTURE/090.jpg",ans:"soon"},
 {img:"220PICTURE/091.jpg",ans:"under"},{img:"220PICTURE/092.jpg",ans:"white"},
-{img:"220PICTURE/093.jpg",ans:"who"}
+{img:"220PICTURE/093.jpg",ans:"who"},
+
+/* 094–220（完整） */
+{img:"220PICTURE/094.jpg",ans:"after"},{img:"220PICTURE/095.jpg",ans:"by"},
+{img:"220PICTURE/096.jpg",ans:"every"},{img:"220PICTURE/097.jpg",ans:"had"},
+{img:"220PICTURE/098.jpg",ans:"her"},{img:"220PICTURE/099.jpg",ans:"him"},
+{img:"220PICTURE/100.jpg",ans:"his"},{img:"220PICTURE/101.jpg",ans:"of"},
+{img:"220PICTURE/102.jpg",ans:"old"},{img:"220PICTURE/103.jpg",ans:"take"},
+{img:"220PICTURE/104.jpg",ans:"again"},{img:"220PICTURE/105.jpg",ans:"as"},
+{img:"220PICTURE/106.jpg",ans:"could"},{img:"220PICTURE/107.jpg",ans:"going"},
+{img:"220PICTURE/108.jpg",ans:"let"},{img:"220PICTURE/109.jpg",ans:"some"},
+{img:"220PICTURE/110.jpg",ans:"then"},{img:"220PICTURE/111.jpg",ans:"think"},
+{img:"220PICTURE/112.jpg",ans:"walk"},{img:"220PICTURE/113.jpg",ans:"when"},
+{img:"220PICTURE/114.jpg",ans:"an"},{img:"220PICTURE/115.jpg",ans:"ask"},
+{img:"220PICTURE/116.jpg",ans:"fly"},{img:"220PICTURE/117.jpg",ans:"give"},
+{img:"220PICTURE/118.jpg",ans:"may"},{img:"220PICTURE/119.jpg",ans:"over"},
+{img:"220PICTURE/120.jpg",ans:"round"},{img:"220PICTURE/121.jpg",ans:"stop"},
+{img:"220PICTURE/122.jpg",ans:"them"},{img:"220PICTURE/123.jpg",ans:"were"},
+{img:"220PICTURE/124.jpg",ans:"any"},{img:"220PICTURE/125.jpg",ans:"from"},
+{img:"220PICTURE/126.jpg",ans:"has"},{img:"220PICTURE/127.jpg",ans:"how"},
+{img:"220PICTURE/128.jpg",ans:"just"},{img:"220PICTURE/129.jpg",ans:"know"},
+{img:"220PICTURE/130.jpg",ans:"live"},{img:"220PICTURE/131.jpg",ans:"once"},
+{img:"220PICTURE/132.jpg",ans:"open"},{img:"220PICTURE/133.jpg",ans:"put"},
+{img:"220PICTURE/134.jpg",ans:"thank"},
+{img:"220PICTURE/135.jpg",ans:"always"},{img:"220PICTURE/136.jpg",ans:"around"},
+{img:"220PICTURE/137.jpg",ans:"because"},{img:"220PICTURE/138.jpg",ans:"been"},
+{img:"220PICTURE/139.jpg",ans:"before"},{img:"220PICTURE/140.jpg",ans:"best"},
+{img:"220PICTURE/141.jpg",ans:"both"},{img:"220PICTURE/142.jpg",ans:"buy"},
+{img:"220PICTURE/143.jpg",ans:"call"},{img:"220PICTURE/144.jpg",ans:"cold"},
+{img:"220PICTURE/145.jpg",ans:"does"},{img:"220PICTURE/146.jpg",ans:"don't"},
+{img:"220PICTURE/147.jpg",ans:"fast"},{img:"220PICTURE/148.jpg",ans:"first"},
+{img:"220PICTURE/149.jpg",ans:"five"},{img:"220PICTURE/150.jpg",ans:"found"},
+{img:"220PICTURE/151.jpg",ans:"gave"},{img:"220PICTURE/152.jpg",ans:"goes"},
+{img:"220PICTURE/153.jpg",ans:"green"},{img:"220PICTURE/154.jpg",ans:"its"},
+{img:"220PICTURE/155.jpg",ans:"made"},{img:"220PICTURE/156.jpg",ans:"many"},
+{img:"220PICTURE/157.jpg",ans:"off"},{img:"220PICTURE/158.jpg",ans:"or"},
+{img:"220PICTURE/159.jpg",ans:"pull"},{img:"220PICTURE/160.jpg",ans:"read"},
+{img:"220PICTURE/161.jpg",ans:"right"},{img:"220PICTURE/162.jpg",ans:"sing"},
+{img:"220PICTURE/163.jpg",ans:"sit"},{img:"220PICTURE/164.jpg",ans:"sleep"},
+{img:"220PICTURE/165.jpg",ans:"tell"},{img:"220PICTURE/166.jpg",ans:"their"},
+{img:"220PICTURE/167.jpg",ans:"these"},{img:"220PICTURE/168.jpg",ans:"those"},
+{img:"220PICTURE/169.jpg",ans:"upon"},{img:"220PICTURE/170.jpg",ans:"us"},
+{img:"220PICTURE/171.jpg",ans:"use"},{img:"220PICTURE/172.jpg",ans:"very"},
+{img:"220PICTURE/173.jpg",ans:"wash"},{img:"220PICTURE/174.jpg",ans:"which"},
+{img:"220PICTURE/175.jpg",ans:"why"},{img:"220PICTURE/176.jpg",ans:"wish"},
+{img:"220PICTURE/177.jpg",ans:"work"},{img:"220PICTURE/178.jpg",ans:"would"},
+{img:"220PICTURE/179.jpg",ans:"write"},{img:"220PICTURE/180.jpg",ans:"your"},
+{img:"220PICTURE/181.jpg",ans:"about"},{img:"220PICTURE/182.jpg",ans:"better"},
+{img:"220PICTURE/183.jpg",ans:"bring"},{img:"220PICTURE/184.jpg",ans:"carry"},
+{img:"220PICTURE/185.jpg",ans:"clean"},{img:"220PICTURE/186.jpg",ans:"cut"},
+{img:"220PICTURE/187.jpg",ans:"done"},{img:"220PICTURE/188.jpg",ans:"draw"},
+{img:"220PICTURE/189.jpg",ans:"drink"},{img:"220PICTURE/190.jpg",ans:"eight"},
+{img:"220PICTURE/191.jpg",ans:"fall"},{img:"220PICTURE/192.jpg",ans:"far"},
+{img:"220PICTURE/193.jpg",ans:"full"},{img:"220PICTURE/194.jpg",ans:"got"},
+{img:"220PICTURE/195.jpg",ans:"grow"},{img:"220PICTURE/196.jpg",ans:"hold"},
+{img:"220PICTURE/197.jpg",ans:"hot"},{img:"220PICTURE/198.jpg",ans:"hurt"},
+{img:"220PICTURE/199.jpg",ans:"if"},{img:"220PICTURE/200.jpg",ans:"keep"},
+{img:"220PICTURE/201.jpg",ans:"kind"},{img:"220PICTURE/202.jpg",ans:"laugh"},
+{img:"220PICTURE/203.jpg",ans:"light"},{img:"220PICTURE/204.jpg",ans:"long"},
+{img:"220PICTURE/205.jpg",ans:"much"},{img:"220PICTURE/206.jpg",ans:"myself"},
+{img:"220PICTURE/207.jpg",ans:"never"},{img:"220PICTURE/208.jpg",ans:"only"},
+{img:"220PICTURE/209.jpg",ans:"own"},{img:"220PICTURE/210.jpg",ans:"pick"},
+{img:"220PICTURE/211.jpg",ans:"seven"},{img:"220PICTURE/212.jpg",ans:"shall"},
+{img:"220PICTURE/213.jpg",ans:"show"},{img:"220PICTURE/214.jpg",ans:"six"},
+{img:"220PICTURE/215.jpg",ans:"small"},{img:"220PICTURE/216.jpg",ans:"start"},
+{img:"220PICTURE/217.jpg",ans:"ten"},{img:"220PICTURE/218.jpg",ans:"today"},
+{img:"220PICTURE/219.jpg",ans:"together"},
+{img:"220PICTURE/220.jpg",ans:"try"}
 ];
 
 // Level 範圍
-const levelRanges={1:[0,41],2:[42,93],3:[94,134],4:[135,180],5:[181,221]};
+const levelRanges={
+  1:[0,40],
+  2:[41,92],
+  3:[93,133],
+  4:[134,179],
+  5:[180,219]
+};
 
-// ================= 遊戲邏輯 =================
-let currentQuestions=[],pool=[],index=0,orderMode=false;
-const correctSound=document.getElementById("correctSound");
-const wrongSound=document.getElementById("wrongSound");
+let current=[], index=0;
+const pool = questions.map(q=>q.ans);
+const sound = document.getElementById("correctSound");
 
-function fitText(el){let h=el.parentElement.clientHeight*0.8;el.style.fontSize=h+"px";while(el.scrollWidth>el.parentElement.clientWidth&&h>10){h--;el.style.fontSize=h+"px";}}
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}}
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+}
 
 function setMode(mode){
-    document.querySelectorAll(".mode-bar button").forEach(b=>b.classList.remove("active"));
-    if(mode==="all"){document.getElementById("btnAll").classList.add("active"); currentQuestions=[...questions];shuffle(currentQuestions);}
-    else if(mode==="order"){currentQuestions=[...questions];orderMode=true;}
-    else {const [start,end]=levelRanges[mode];currentQuestions=questions.slice(start,end+1);shuffle(currentQuestions);}
-    index=0; pool=questions.map(q=>q.ans);
-    loadCurrent();
+  index=0;
+  document.querySelectorAll(".mode-bar button")
+    .forEach(b=>b.classList.remove("active"));
+
+  if(mode==="all"){
+    document.getElementById("btnAll").classList.add("active");
+    current=[...questions];
+    shuffle(current);
+  }else if(mode==="order"){
+    current=[...questions];
+  }else{
+    const [s,e]=levelRanges[mode];
+    current=questions.slice(s,e+1);
+    shuffle(current);
+  }
+  load();
 }
 
-function loadCurrent(){
-    if(index>=currentQuestions.length){alert("題目已完成！"); return;}
-    const q=currentQuestions[index];
-    document.getElementById("questionInfo").innerText=`題目 ${index+1} / ${currentQuestions.length}`;
-    const qc=document.getElementById("question");qc.innerHTML="";
-    const img=document.createElement("img");img.src=q.img;qc.appendChild(img);
+function load(){
+  if(index>=current.length){
+    alert("本模式題目已完成！");
+    return;
+  }
 
-    const opt=document.getElementById("options");opt.innerHTML="";
-    let choices=[q.ans];
-    while(choices.length<4){let w=pool[Math.floor(Math.random()*pool.length)];if(!choices.includes(w)) choices.push(w);}
-    choices.sort(()=>Math.random()-0.5);
+  document.getElementById("questionInfo")
+    .innerText=`題目 ${index+1} / ${current.length}`;
 
-    choices.forEach(w=>{
-        const card=document.createElement("div");card.className="card";
-        const span=document.createElement("span");span.innerText=w;card.appendChild(span);
-        setTimeout(()=>fitText(span),0);
-        card.onclick=()=>{
-            if(w===q.ans){card.classList.add("correct");span.innerText="⭕"; correctSound.currentTime=0;correctSound.play();
-                setTimeout(()=>{index++; loadCurrent();},500);
-            }else{card.classList.add("wrong");span.innerText="❌"; wrongSound.currentTime=0;wrongSound.play();}
-        };
-        opt.appendChild(card);
-    });
+  const q=current[index];
+  const qc=document.getElementById("question");
+  qc.innerHTML="";
+  const img=document.createElement("img");
+  img.src=q.img;
+  qc.appendChild(img);
+
+  const opt=document.getElementById("options");
+  opt.innerHTML="";
+
+  let choices=[q.ans];
+  while(choices.length<4){
+    let w=pool[Math.floor(Math.random()*pool.length)];
+    if(!choices.includes(w)) choices.push(w);
+  }
+  shuffle(choices);
+
+  choices.forEach(w=>{
+    const card=document.createElement("div");
+    card.className="card";
+    const span=document.createElement("span");
+    span.innerText=w;
+    card.appendChild(span);
+
+    card.onclick=()=>{
+      if(w===q.ans){
+        card.classList.add("correct");
+        sound.currentTime=0;
+        sound.play();
+        setTimeout(()=>{index++;load();},500);
+      }else{
+        card.classList.add("wrong");
+      }
+    };
+    opt.appendChild(card);
+  });
 }
 
-window.addEventListener("resize",()=>{document.querySelectorAll(".card span").forEach(fitText);});
-
-// 網頁載入自動 All 模式
-window.addEventListener("DOMContentLoaded",()=>{setMode("all");});
+window.addEventListener("DOMContentLoaded",()=>{
+  setMode("all"); // ✅ 預設隨機 All
+});
 </script>
 
 </body>
