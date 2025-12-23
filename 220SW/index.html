@@ -5,49 +5,115 @@
 <title>220 Sight Words 小遊戲</title>
 
 <style>
-body { margin:0; padding:0; background:#fefaf0; font-family:Arial,sans-serif; display:flex; justify-content:center; align-items:center; flex-direction:column; min-height:100vh;}
-.mode-bar { position: sticky; top:0; background:#fefaf0; width:100%; padding:10px 5px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; z-index:10;}
-.mode-bar button { padding:8px 14px; font-size:16px; border-radius:8px; border:2px solid #ccc; background:#fff; cursor:pointer;}
-.mode-bar button.active { background:#4CAF50; color:#fff; border-color:#4CAF50;}
-.game-container { width:100%; padding:20px; box-sizing:border-box; display:flex; flex-direction:column; gap:20px; align-items:center;}
-#gameTitle { margin-bottom:20px; text-align:center; color:#333; line-height:1;}
-#questionInfo { margin-bottom:10px; font-size:18px; color:#555;}
-.question-card { width:98%; min-height:45vh; background:#fff8dc; border:2px solid #e0c676; border-radius:12px; display:flex; justify-content:center; align-items:center; box-shadow:3px 3px 8px rgba(0,0,0,0.15); overflow:hidden;}
-.question-card img { max-width:100%; max-height:100%;}
-.options-container { width:100%; display:grid; grid-template-columns:repeat(2,1fr); gap:15px; justify-items:center;}
-.card { width:40vw; aspect-ratio:2/1; background:#f0f0f0; border-radius:12px; border:2px solid #ccc; font-weight:bold; display:flex; justify-content:center; align-items:center; cursor:pointer; transition:0.2s;}
-.card span { width:100%; text-align:center; white-space:nowrap;}
-.card:hover { transform:scale(1.05);}
-.correct { background:#d4f8d4 !important;}
-.wrong { background:#ffd5d5 !important;}
-@media (max-width:480px){.card{width:35vw;}}
+body{
+  margin:0;padding:0;background:#fefaf0;
+  font-family:Arial,sans-serif;
+  display:flex;flex-direction:column;align-items:center;
+  min-height:100vh;
+}
+.mode-bar{
+  position:sticky;top:0;background:#fefaf0;width:100%;
+  padding:10px;display:flex;flex-wrap:wrap;gap:8px;
+  justify-content:center;z-index:10;
+}
+.mode-bar button{
+  padding:8px 14px;font-size:16px;border-radius:8px;
+  border:2px solid #ccc;background:#fff;cursor:pointer;
+}
+.mode-bar button.active{
+  background:#4CAF50;color:#fff;border-color:#4CAF50;
+}
+.game-container{
+  width:100%;padding:20px;box-sizing:border-box;
+  display:flex;flex-direction:column;gap:16px;align-items:center;
+}
+#questionInfo{font-size:18px;color:#555;}
+
+.question-card{
+  width:98%;min-height:45vh;
+  background:#fff8dc;border:2px solid #e0c676;
+  border-radius:12px;
+  display:flex;justify-content:center;align-items:center;
+  box-shadow:3px 3px 8px rgba(0,0,0,0.15);
+}
+.question-card img{max-width:100%;max-height:100%;}
+
+#sentence{
+  font-size:40px;
+  font-weight:bold;
+  text-align:center;
+  min-height:50px;
+  padding:0 10px;
+  word-break:break-word;
+}
+
+.options-container{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  justify-items:center;
+}
+.card{
+  width:40vw;aspect-ratio:2/1;
+  background:#f0f0f0;border-radius:12px;
+  border:2px solid #ccc;
+  font-weight:bold;
+  display:flex;justify-content:center;align-items:center;
+  cursor:pointer;transition:0.2s;
+}
+.card span{width:100%;text-align:center;white-space:nowrap;}
+.card:hover{transform:scale(1.05);}
+.correct{background:#d4f8d4!important;}
+.wrong{background:#ffd5d5!important;}
+@media(max-width:480px){.card{width:35vw;}}
+
+#controlBar{
+  display:flex;
+  gap:12px;
+}
+#controlBar button:hover{
+  background:#dbeeff;   /* 淡藍色 */
+  border-color:#6aa9ff;
+  padding:10px 18px;
+  font-size:18px;
+  border-radius:10px;
+  border:2px solid #888;
+  background:#fff;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
 <div class="mode-bar">
-    <button id="btnAll">All</button>
-    <button onclick="setMode(1)">Level 1</button>
-    <button onclick="setMode(2)">Level 2</button>
-    <button onclick="setMode(3)">Level 3</button>
-    <button onclick="setMode(4)">Level 4</button>
-    <button onclick="setMode(5)">Level 5</button>
-    <button onclick="setMode('order')">照順序練習</button>
+<button onclick="setMode('all', this)">All</button>
+<button onclick="setMode(1, this)">Level 1</button>
+<button onclick="setMode(2, this)">Level 2</button>
+<button onclick="setMode(3, this)">Level 3</button>
+<button onclick="setMode(4, this)">Level 4</button>
+<button onclick="setMode(5, this)">Level 5</button>
+<button onclick="setMode('order', this)">照順序練習</button>
 </div>
 
 <div class="game-container">
-    <h1 id="gameTitle">220 Sight Words 小遊戲</h1>
-    <div id="questionInfo"></div>
-    <div class="question-card" id="question"></div>
-    <div class="options-container" id="options"></div>
+  <div id="questionInfo"></div>
+  <div class="question-card" id="question"></div>
+  <div id="sentence"></div>
+  <div class="options-container" id="options"></div>
+
+  <!-- 只在照順序練習顯示 -->
+  <div id="controlBar" style="display:none;">
+    <button onclick="nextQuestion()">下一題</button>
+    <button onclick="repeatSentence()">再唸一次</button>
+  </div>
 </div>
 
-<audio id="correctSound"><source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg"></audio>
-<audio id="wrongSound"><source src="https://www.soundjay.com/buttons/sounds/button-10.mp3" type="audio/mpeg"></audio>
+<audio id="correctSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
 
 <script>
-// ================= 完整 220 題庫 =================
 // ================= 完整 220 題庫 =================
 const questions = [
   // ===== LEVEL 1 001~041 =====
@@ -282,58 +348,134 @@ const questions = [
   {img:"220PICTURE/221.jpg", ans:"warm", sentence:"The soup is warm and tasty."}
 ];
 
-// Level 範圍
-const levelRanges={1:[0,41],2:[42,93],3:[94,134],4:[135,180],5:[181,219]};
+// ================= 程式邏輯 =================
+const levelRanges={1:[1,41],2:[42,93],3:[94,134],4:[135,180],5:[181,221]};
+let currentQuestions=[],pool=[],index=0;
+let isOrderMode=false;
+let lastSentence="";
 
-// ================= 遊戲邏輯 =================
-let currentQuestions=[],pool=[],index=0,orderMode=false;
 const correctSound=document.getElementById("correctSound");
 const wrongSound=document.getElementById("wrongSound");
+const sentenceDiv=document.getElementById("sentence");
 
-function fitText(el){let h=el.parentElement.clientHeight*0.8;el.style.fontSize=h+"px";while(el.scrollWidth>el.parentElement.clientWidth&&h>10){h--;el.style.fontSize=h+"px";}}
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}}
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+}
 
-function setMode(mode){
-    document.querySelectorAll(".mode-bar button").forEach(b=>b.classList.remove("active"));
-    if(mode==="all"){document.getElementById("btnAll").classList.add("active"); currentQuestions=[...questions];shuffle(currentQuestions);}
-    else if(mode==="order"){currentQuestions=[...questions];}
-    else {const [s,e]=levelRanges[mode];currentQuestions=questions.slice(s,e+1);shuffle(currentQuestions);}
-    index=0; pool=questions.map(q=>q.ans);
-    loadCurrent();
+function fitText(el){
+  let h=el.parentElement.clientHeight*0.8;
+  el.style.fontSize=h+"px";
+  while(el.scrollWidth>el.parentElement.clientWidth&&h>10){
+    h--;el.style.fontSize=h+"px";
+  }
+}
+function fitSentence(){
+  let size=40;
+  sentenceDiv.style.fontSize=size+"px";
+  while(sentenceDiv.scrollWidth>sentenceDiv.clientWidth&&size>12){
+    size--;sentenceDiv.style.fontSize=size+"px";
+  }
+}
+
+function setMode(mode, btn){
+  document.querySelectorAll(".mode-bar button")
+    .forEach(b=>b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+
+  isOrderMode = (mode === "order");
+
+  if(mode==="all"){
+    currentQuestions=[...questions];
+    shuffle(currentQuestions);
+  }else if(mode==="order"){
+    currentQuestions=[...questions];
+  }else{
+    const [s,e]=levelRanges[mode];
+    currentQuestions=questions.slice(s,e+1);
+    shuffle(currentQuestions);
+  }
+  index=0;
+  pool=questions.map(q=>q.ans);
+
+  document.getElementById("controlBar").style.display =
+    isOrderMode ? "flex" : "none";
+
+  loadCurrent();
 }
 
 function loadCurrent(){
-    if(index>=currentQuestions.length){alert("題目已完成！"); return;}
-    const q=currentQuestions[index];
-    document.getElementById("questionInfo").innerText=`題目 ${index+1} / ${currentQuestions.length}`;
-    const qc=document.getElementById("question");qc.innerHTML="";
-    const img=document.createElement("img");img.src=q.img;qc.appendChild(img);
+  if(index>=currentQuestions.length){
+    alert("題目已完成！");
+    return;
+  }
 
-    const opt=document.getElementById("options");opt.innerHTML="";
-    let choices=[q.ans];
-    while(choices.length<4){let w=pool[Math.floor(Math.random()*pool.length)];if(!choices.includes(w)) choices.push(w);}
-    choices.sort(()=>Math.random()-0.5);
+  const q=currentQuestions[index];
+  lastSentence=q.sentence;
 
-    choices.forEach(w=>{
-        const card=document.createElement("div");card.className="card";
-        const span=document.createElement("span");span.innerText=w;card.appendChild(span);
-        setTimeout(()=>fitText(span),0);
-        card.onclick=()=>{
-            if(w===q.ans){
-                card.classList.add("correct");span.innerText="⭕";
-                correctSound.currentTime=0;correctSound.play();
-                setTimeout(()=>{index++;loadCurrent();},500);
-            }else{
-                card.classList.add("wrong");span.innerText="❌";
-                wrongSound.currentTime=0;wrongSound.play();
-            }
+  questionInfo.innerText=`題目 ${index+1} / ${currentQuestions.length}`;
+  question.innerHTML=`<img src="${q.img}">`;
+  options.innerHTML="";
+  sentenceDiv.innerText="";
+
+  let choices=[q.ans];
+  let distractors=pool.filter(w=>w!==q.ans);
+  shuffle(distractors);
+  choices.push(...distractors.slice(0,3));
+  shuffle(choices);
+
+  choices.forEach(w=>{
+    const card=document.createElement("div");
+    card.className="card";
+    const span=document.createElement("span");
+    span.innerText=w;
+    card.appendChild(span);
+    setTimeout(()=>fitText(span),0);
+
+    card.onclick=()=>{
+      if(w===q.ans){
+        card.classList.add("correct");
+        span.innerText="⭕";
+        sentenceDiv.innerText=q.sentence;
+        fitSentence();
+
+        const utter=new SpeechSynthesisUtterance(q.sentence);
+        speechSynthesis.speak(utter);
+        correctSound.currentTime=0;
+        correctSound.play();
+
+        utter.onend=()=>{
+          if(!isOrderMode){
+            setTimeout(()=>{index++;loadCurrent();},2000);
+          }
         };
-        opt.appendChild(card);
-    });
+      }else{
+        card.classList.add("wrong");
+        span.innerText="❌";
+        wrongSound.currentTime=0;
+        wrongSound.play();
+      }
+    };
+    options.appendChild(card);
+  });
 }
 
-window.addEventListener("resize",()=>{document.querySelectorAll(".card span").forEach(fitText);});
-window.addEventListener("DOMContentLoaded",()=>{setMode("all");});
+function nextQuestion(){
+  index++;
+  loadCurrent();
+}
+
+function repeatSentence(){
+  if(lastSentence){
+    const utter=new SpeechSynthesisUtterance(lastSentence);
+    speechSynthesis.speak(utter);
+  }
+}
+
+window.addEventListener("resize",fitSentence);
+window.addEventListener("DOMContentLoaded",()=>setMode("all"));
 </script>
 
 </body>
