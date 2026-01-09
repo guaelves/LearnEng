@@ -8,9 +8,10 @@
 <script>
   if ('service-worker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.service-worker.register('sw.js')
-        .then(reg => console.log('PWA 註冊成功！', reg))
-        .catch(err => console.log('PWA 註冊失敗。', err));
+      // 確保使用相對路徑 ./
+      navigator.service-worker.register('./sw.js')
+        .then(reg => console.log('PWA 註冊成功！範圍:', reg.scope))
+        .catch(err => console.error('PWA 註冊失敗:', err));
     });
   }
 </script>
