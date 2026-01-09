@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="220Words">
-  
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4A90E2">
-<link rel="apple-touch-icon" href="https://via.placeholder.com/192">
-<script>
-  if ('service-worker' in navigator) {
-    window.addEventListener('load', () => {
-      // 確保使用相對路徑 ./
-      navigator.service-worker.register('./sw.js')
-        .then(reg => console.log('PWA 註冊成功！範圍:', reg.scope))
-        .catch(err => console.error('PWA 註冊失敗:', err));
-    });
-  }
-</script>
   
 <meta charset="UTF-8">
 <title>220 Sight Words 小遊戲</title>
