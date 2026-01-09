@@ -1,16 +1,26 @@
 {
-  "name": "220 Sight Words",
+  "name": "220 Sight Words - 英語常用字學習",
   "short_name": "220Words",
+  "description": "幫助孩子掌握 220 個基礎英文常用字，提升閱讀流暢度。",
   "start_url": "./index.html",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#fefaf0",
   "theme_color": "#4A90E2",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
-  "scope": "./"
+  "scope": "./",
+  "lang": "zh-TW"
 }
