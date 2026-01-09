@@ -1,10 +1,10 @@
 {
-  "name": "英語 220 常用字遊戲",
+  "name": "220 Sight Words",
   "short_name": "220Words",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fefaf0",
-  "theme_color": "#4CAF50",
+  "theme_color": "#4A90E2",
   "icons": [
     {
       "src": "220PICTURE/001.jpg",
