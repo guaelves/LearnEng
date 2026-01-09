@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4A90E2">
+
+<script>
+  if ('service-worker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.service-worker.register('sw.js')
+        .then(reg => console.log('PWA 註冊成功！', reg))
+        .catch(err => console.log('PWA 註冊失敗。', err));
+    });
+  }
+</script>
+  
 <meta charset="UTF-8">
 <title>220 Sight Words 小遊戲</title>
 
