@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-
 <link rel="apple-touch-icon" href="icon.png">
-
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
-
 <meta name="apple-mobile-web-app-title" content="220Words">
-
-
-  
 <meta charset="UTF-8">
 <title>220 Sight Words 小遊戲</title>
 
@@ -83,15 +76,17 @@ body{
   display:flex;
   gap:12px;
 }
-#controlBar button:hover{
-  background:#dbeeff;   /* 淡藍色 */
-  border-color:#6aa9ff;
+#controlBar button {
   padding:10px 18px;
   font-size:18px;
   border-radius:10px;
   border:2px solid #888;
   background:#fff;
   cursor:pointer;
+}
+#controlBar button:hover{
+  background:#dbeeff;
+  border-color:#6aa9ff;
 }
 </style>
 </head>
@@ -114,20 +109,16 @@ body{
   <div id="sentence"></div>
   <div class="options-container" id="options"></div>
 
-  <!-- 只在照順序練習顯示 -->
   <div id="controlBar" style="display:none;">
     <button onclick="nextQuestion()">下一題</button>
     <button onclick="repeatSentence()">再唸一次</button>
   </div>
 </div>
 
-<audio id="correctSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
-<audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
-
 <script>
-// ================= 完整 220 題庫 =================
+// ================= 完整 221 題庫 =================
 const questions = [
-  // ===== LEVEL 1 001~041 =====
+  // LEVEL 1
   {img:"220PICTURE/001.jpg", ans:"I", sentence:"I am a boy."},
   {img:"220PICTURE/002.jpg", ans:"I", sentence:"I am a girl."},
   {img:"220PICTURE/003.jpg", ans:"a", sentence:"I see a dog."},
@@ -170,7 +161,7 @@ const questions = [
   {img:"220PICTURE/040.jpg", ans:"said", sentence:"The cow said \"moo\"."},
   {img:"220PICTURE/041.jpg", ans:"where", sentence:"Where are my shoes?"},
 
-  // ===== LEVEL 2 042~093 =====
+  // LEVEL 2
   {img:"220PICTURE/042.jpg", ans:"all", sentence:"They all play music."},
   {img:"220PICTURE/043.jpg", ans:"at", sentence:"She is at the store."},
   {img:"220PICTURE/044.jpg", ans:"but", sentence:"I like milk but not soy milk."},
@@ -188,7 +179,7 @@ const questions = [
   {img:"220PICTURE/056.jpg", ans:"get", sentence:"He can get the mail."},
   {img:"220PICTURE/057.jpg", ans:"have", sentence:"Birds have wings."},
   {img:"220PICTURE/058.jpg", ans:"out", sentence:"Please take the trash out."},
-  {img:"220PICTURE/059.jpg", ans:"so", sentence:"I am tires, so I will rest."},
+  {img:"220PICTURE/059.jpg", ans:"so", sentence:"I am tired, so I will rest."},
   {img:"220PICTURE/060.jpg", ans:"there", sentence:"There is a sandbox."},
   {img:"220PICTURE/061.jpg", ans:"what", sentence:"What did the cars do?"},
   {img:"220PICTURE/062.jpg", ans:"are", sentence:"We are brothers."},
@@ -224,7 +215,7 @@ const questions = [
   {img:"220PICTURE/092.jpg", ans:"white", sentence:"The swan is white."},
   {img:"220PICTURE/093.jpg", ans:"who", sentence:"Who is on the phone?"},
 
-  // ===== LEVEL 3 094~134 =====
+  // LEVEL 3
   {img:"220PICTURE/094.jpg", ans:"after", sentence:"After a wish, she blows out the candles."},
   {img:"220PICTURE/095.jpg", ans:"by", sentence:"The ant is by the plant."},
   {img:"220PICTURE/096.jpg", ans:"every", sentence:"Every duck can swim."},
@@ -267,7 +258,7 @@ const questions = [
   {img:"220PICTURE/133.jpg", ans:"put", sentence:"Put on the vest."},
   {img:"220PICTURE/134.jpg", ans:"thank", sentence:"Thank you for the ring."},
 
-  // ===== LEVEL 4 135~180 =====
+  // LEVEL 4
   {img:"220PICTURE/135.jpg", ans:"always", sentence:"I always smile."},
   {img:"220PICTURE/136.jpg", ans:"around", sentence:"The sun is around during the day."},
   {img:"220PICTURE/137.jpg", ans:"because", sentence:"I like ice cream because it's sweet."},
@@ -284,7 +275,7 @@ const questions = [
   {img:"220PICTURE/148.jpg", ans:"first", sentence:"My first book."},
   {img:"220PICTURE/149.jpg", ans:"five", sentence:"I see five birds."},
   {img:"220PICTURE/150.jpg", ans:"found", sentence:"I found my toy."},
-  {img:"220PICTURE/151.jpg", ans:"gave", sentence:"She gove me a gift."},
+  {img:"220PICTURE/151.jpg", ans:"gave", sentence:"She gave me a gift."},
   {img:"220PICTURE/152.jpg", ans:"goes", sentence:"The bus goes to school."},
   {img:"220PICTURE/153.jpg", ans:"green", sentence:"The leaves are green."},
   {img:"220PICTURE/154.jpg", ans:"its", sentence:"The cat loves its bed."},
@@ -299,43 +290,43 @@ const questions = [
   {img:"220PICTURE/163.jpg", ans:"sit", sentence:"Please sit down on the chair."},
   {img:"220PICTURE/164.jpg", ans:"time", sentence:"It's time to sleep."},
   {img:"220PICTURE/165.jpg", ans:"story", sentence:"Can you tell me a story?"},
-  {img:"220PICTURE/166.jpg", ans:"dog", sentence:"Their dog is cute."},
-  {img:"220PICTURE/167.jpg", ans:"delicious", sentence:"These cookies are delicious."},
-  {img:"220PICTURE/168.jpg", ans:"colorful", sentence:"Look at those colorful balloons!"},
-  {img:"220PICTURE/169.jpg", ans:"once", sentence:"Once upon a time, there was a princess."},
-  {img:"220PICTURE/170.jpg", ans:"kids", sentence:"Us kids like to play together."},
-  {img:"220PICTURE/171.jpg", ans:"crayons", sentence:"We can use crayons to draw pictures."},
-  {img:"220PICTURE/172.jpg", ans:"sunny", sentence:"It's a very sunny day."},
-  {img:"220PICTURE/173.jpg", ans:"mom", sentence:"Mon will wash your clothes."},
+  {img:"220PICTURE/166.jpg", ans:"their", sentence:"Their dog is cute."},
+  {img:"220PICTURE/167.jpg", ans:"these", sentence:"These cookies are delicious."},
+  {img:"220PICTURE/168.jpg", ans:"those", sentence:"Look at those colorful balloons!"},
+  {img:"220PICTURE/169.jpg", ans:"upon", sentence:"Once upon a time, there was a princess."},
+  {img:"220PICTURE/170.jpg", ans:"us", sentence:"Us kids like to play together."},
+  {img:"220PICTURE/171.jpg", ans:"use", sentence:"We can use crayons to draw pictures."},
+  {img:"220PICTURE/172.jpg", ans:"very", sentence:"It's a very sunny day."},
+  {img:"220PICTURE/173.jpg", ans:"wash", sentence:"Mom will wash your clothes."},
   {img:"220PICTURE/174.jpg", ans:"which", sentence:"Which book do you want to read?"},
   {img:"220PICTURE/175.jpg", ans:"why", sentence:"Why is the sky blue?"},
-  {img:"220PICTURE/176.jpg", ans:"happy", sentence:"I wish you a happy birthday!"},
-  {img:"220PICTURE/177.jpg", ans:"dad", sentence:"Dad is going to work now."},
+  {img:"220PICTURE/176.jpg", ans:"wish", sentence:"I wish you a happy birthday!"},
+  {img:"220PICTURE/177.jpg", ans:"work", sentence:"Dad is going to work now."},
   {img:"220PICTURE/178.jpg", ans:"would", sentence:"I would like some ice cream."},
   {img:"220PICTURE/179.jpg", ans:"write", sentence:"I will write you a letter."},
   {img:"220PICTURE/180.jpg", ans:"your", sentence:"Is this your toy?"},
 
-  // ===== LEVEL 5 181~221 =====
+  // LEVEL 5
   {img:"220PICTURE/181.jpg", ans:"tell", sentence:"Tell me about your pet."},
   {img:"220PICTURE/182.jpg", ans:"better", sentence:"This cake is better than that one."},
   {img:"220PICTURE/183.jpg", ans:"bring", sentence:"Bring your backpack to school."},
   {img:"220PICTURE/184.jpg", ans:"carry", sentence:"I can carry my bags."},
-  {img:"220PICTURE/185.jpg", ans:"need", sentence:"We need to clean our room."},
-  {img:"220PICTURE/186.jpg", ans:"safety", sentence:"Use safety scissors to cut paper."},
+  {img:"220PICTURE/185.jpg", ans:"clean", sentence:"We need to clean our room."},
+  {img:"220PICTURE/186.jpg", ans:"cut", sentence:"Use safety scissors to cut paper."},
   {img:"220PICTURE/187.jpg", ans:"done", sentence:"All done with my snack!"},
   {img:"220PICTURE/188.jpg", ans:"draw", sentence:"Let's draw a smiley face."},
   {img:"220PICTURE/189.jpg", ans:"drink", sentence:"I want to drink juice."},
   {img:"220PICTURE/190.jpg", ans:"eight", sentence:"There are eight colorful balloons."},
   {img:"220PICTURE/191.jpg", ans:"fall", sentence:"The leaves fall from the trees."},
-  {img:"220PICTURE/192.jpg", ans:"too", sentence:"The park is too far from our house."},
+  {img:"220PICTURE/192.jpg", ans:"far", sentence:"The park is too far from our house."},
   {img:"220PICTURE/193.jpg", ans:"full", sentence:"My tummy is full after eating dinner."},
-  {img:"220PICTURE/194.jpg", ans:"new", sentence:"I got new toys for my birthday."},
+  {img:"220PICTURE/194.jpg", ans:"got", sentence:"I got new toys for my birthday."},
   {img:"220PICTURE/195.jpg", ans:"grow", sentence:"Plants grow when you water them."},
   {img:"220PICTURE/196.jpg", ans:"hold", sentence:"Please hold my hand."},
   {img:"220PICTURE/197.jpg", ans:"hot", sentence:"The soup is very hot."},
   {img:"220PICTURE/198.jpg", ans:"hurt", sentence:"Did you hurt yourself when you fell?"},
-  {img:"220PICTURE/199.jpg", ans:"umbrella", sentence:"If it rains, we'll need an umbrella."},
-  {img:"220PICTURE/200.jpg", ans:"tidy", sentence:"Keep your room tidy."},
+  {img:"220PICTURE/199.jpg", ans:"if", sentence:"If it rains, we'll need an umbrella."},
+  {img:"220PICTURE/200.jpg", ans:"keep", sentence:"Keep your room tidy."},
   {img:"220PICTURE/201.jpg", ans:"kind", sentence:"Be kind to your friends and share your toys."},
   {img:"220PICTURE/202.jpg", ans:"laugh", sentence:"It's fun to laugh with friends."},
   {img:"220PICTURE/203.jpg", ans:"light", sentence:"Can you turn on the light, please?"},
@@ -349,12 +340,12 @@ const questions = [
   {img:"220PICTURE/211.jpg", ans:"seven", sentence:"There are seven days in a week."},
   {img:"220PICTURE/212.jpg", ans:"shall", sentence:"Shall we go to the park?"},
   {img:"220PICTURE/213.jpg", ans:"show", sentence:"Can you show me your favorite toy?"},
-  {img:"220PICTURE/214.jpg", ans:"count", sentence:"I can count to six."},
+  {img:"220PICTURE/214.jpg", ans:"six", sentence:"I can count to six."},
   {img:"220PICTURE/215.jpg", ans:"small", sentence:"The puppy is small and cute."},
   {img:"220PICTURE/216.jpg", ans:"start", sentence:"Let's start our game now."},
   {img:"220PICTURE/217.jpg", ans:"ten", sentence:"There are ten fingers on my hands."},
   {img:"220PICTURE/218.jpg", ans:"today", sentence:"Today is a sunny day."},
-  {img:"220PICTURE/219.jpg", ans:"play", sentence:"Let's play together."},
+  {img:"220PICTURE/219.jpg", ans:"together", sentence:"Let's play together."},
   {img:"220PICTURE/220.jpg", ans:"try", sentence:"Don't give up, try again!"},
   {img:"220PICTURE/221.jpg", ans:"warm", sentence:"The soup is warm and tasty."}
 ];
@@ -365,9 +356,17 @@ let currentQuestions=[],pool=[],index=0;
 let isOrderMode=false;
 let lastSentence="";
 
-const correctSound=document.getElementById("correctSound");
-const wrongSound=document.getElementById("wrongSound");
 const sentenceDiv=document.getElementById("sentence");
+
+// 隨機人聲設定
+function getRandomVoice() {
+  const voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+  if (voices.length === 0) return null;
+  return voices[Math.floor(Math.random() * voices.length)];
+}
+
+// 確保語音載入（部分瀏覽器需非同步獲取）
+window.speechSynthesis.onvoiceschanged = getRandomVoice;
 
 function shuffle(a){
   for(let i=a.length-1;i>0;i--){
@@ -383,6 +382,7 @@ function fitText(el){
     h--;el.style.fontSize=h+"px";
   }
 }
+
 function fitSentence(){
   let size=40;
   sentenceDiv.style.fontSize=size+"px";
@@ -405,7 +405,7 @@ function setMode(mode, btn){
     currentQuestions=[...questions];
   }else{
     const [s,e]=levelRanges[mode];
-    currentQuestions=questions.slice(s,e+1);
+    currentQuestions=questions.slice(s-1,e);
     shuffle(currentQuestions);
   }
   index=0;
@@ -417,18 +417,28 @@ function setMode(mode, btn){
   loadCurrent();
 }
 
+function speakText(text) {
+  const utter = new SpeechSynthesisUtterance(text);
+  const voice = getRandomVoice();
+  if (voice) utter.voice = voice;
+  utter.lang = 'en-US';
+  speechSynthesis.speak(utter);
+  return utter;
+}
+
 function loadCurrent(){
   if(index>=currentQuestions.length){
-    alert("題目已完成！");
+    alert("所有題目已完成！");
     return;
   }
 
   const q=currentQuestions[index];
   lastSentence=q.sentence;
 
-  questionInfo.innerText=`題目 ${index+1} / ${currentQuestions.length}`;
-  question.innerHTML=`<img src="${q.img}">`;
-  options.innerHTML="";
+  document.getElementById("questionInfo").innerText=`題目 ${index+1} / ${currentQuestions.length}`;
+  document.getElementById("question").innerHTML=`<img src="${q.img}">`;
+  const optionsContainer = document.getElementById("options");
+  optionsContainer.innerHTML="";
   sentenceDiv.innerText="";
 
   let choices=[q.ans];
@@ -452,24 +462,20 @@ function loadCurrent(){
         sentenceDiv.innerText=q.sentence;
         fitSentence();
 
-        const utter=new SpeechSynthesisUtterance(q.sentence);
-        speechSynthesis.speak(utter);
-        correctSound.currentTime=0;
-        correctSound.play();
+        // 朗讀句子（隨機男/女聲）
+        const utter = speakText(q.sentence);
 
         utter.onend=()=>{
           if(!isOrderMode){
-            setTimeout(()=>{index++;loadCurrent();},2000);
+            setTimeout(()=>{index++;loadCurrent();},1500);
           }
         };
       }else{
         card.classList.add("wrong");
         span.innerText="❌";
-        wrongSound.currentTime=0;
-        wrongSound.play();
       }
     };
-    options.appendChild(card);
+    optionsContainer.appendChild(card);
   });
 }
 
@@ -480,8 +486,7 @@ function nextQuestion(){
 
 function repeatSentence(){
   if(lastSentence){
-    const utter=new SpeechSynthesisUtterance(lastSentence);
-    speechSynthesis.speak(utter);
+    speakText(lastSentence);
   }
 }
 
