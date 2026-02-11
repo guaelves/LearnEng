@@ -64,12 +64,29 @@ body{
   border:2px solid #ccc;
   font-weight:bold;
   display:flex;justify-content:center;align-items:center;
-  cursor:pointer;transition:0.2s;
+  cursor:pointer;transition:0.1s;
+  box-sizing: border-box;
 }
 .card span{width:100%;text-align:center;white-space:nowrap;}
-.card:hover{transform:scale(1.05);}
-.correct{background:#d4f8d4!important;}
-.wrong{background:#ffd5d5!important;}
+
+/* --- 新增：預選時的黃色框框 --- */
+.card:hover, .card:active {
+  border: 3px solid #FFD700!important; /* 金黃色 */
+  transform: scale(1.02);
+}
+
+/* 答對樣式 */
+.correct{
+  background:#d4f8d4!important; 
+  border: 3px solid #4CAF50!important;
+}
+
+/* 答錯樣式：紅色框線 */
+.wrong{
+  background:#ffd5d5!important; 
+  border: 3px solid #ff0000!important; 
+}
+
 @media(max-width:480px){.card{width:35vw;}}
 
 #controlBar{
@@ -358,14 +375,12 @@ let lastSentence="";
 
 const sentenceDiv=document.getElementById("sentence");
 
-// 隨機人聲設定
 function getRandomVoice() {
   const voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
   if (voices.length === 0) return null;
   return voices[Math.floor(Math.random() * voices.length)];
 }
 
-// 確保語音載入（部分瀏覽器需非同步獲取）
 window.speechSynthesis.onvoiceschanged = getRandomVoice;
 
 function shuffle(a){
@@ -457,12 +472,12 @@ function loadCurrent(){
 
     card.onclick=()=>{
       if(w===q.ans){
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('wrong'));
         card.classList.add("correct");
         span.innerText="⭕";
         sentenceDiv.innerText=q.sentence;
         fitSentence();
 
-        // 朗讀句子（隨機男/女聲）
         const utter = speakText(q.sentence);
 
         utter.onend=()=>{
